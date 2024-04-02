@@ -17,11 +17,9 @@ try {
   }).catch((err) => console.log("Database Is Not Connected"))
 
   const apiRouter = require('./routes/Loginregister');
-  const app = express();
+  const indexRouter = require('./routes/index');
 
-  app.get('/', function (req, res) {
-    res.render('index');
-  });
+  const app = express();
 
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'ejs');
@@ -32,6 +30,7 @@ try {
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, 'public')));
 
+  app.use('/', indexRouter);
   app.use('/Api', apiRouter);
 
   app.use(function (req, res, next) {
